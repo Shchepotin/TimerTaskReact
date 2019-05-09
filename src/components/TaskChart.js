@@ -3,13 +3,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
 } from 'recharts';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import styles from '../styles';
 
+// Actions
 import { generateRandomTasks } from '../actions/task'
 
 import splitTasksByTime from '../utils/splitTasksByTime';
@@ -20,7 +28,10 @@ const TaskChart = (props) => {
 
   return (
     <div className={classes.subRoot}>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer
+        width="100%"
+        height={300}
+      >
         <BarChart
           height={300}
           data={data}

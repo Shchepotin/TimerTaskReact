@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 
+// Actions
 import {
   destroyTask
 } from '../actions/task';
@@ -38,7 +39,10 @@ const TaskLog = (props) => {
         </TableHead>
         <TableBody>
           {props.tasks.map(row => (
-            <TableRow key={row.id} className={classes.cellTable}>
+            <TableRow
+              key={row.id}
+              className={classes.cellTable}
+            >
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>

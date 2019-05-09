@@ -29,10 +29,15 @@ const NotFound = (props) => {
       <Grid item xs={12} md={6}>
         <Card>
           <CardContent>
-            <Typography variant="h4" gutterBottom>
+            <Typography
+              variant="h4"
+              gutterBottom
+            >
               404
             </Typography>
-            <Typography color="textSecondary">
+            <Typography
+              color="textSecondary"
+            >
               Page not found.
             </Typography>
           </CardContent>
@@ -50,6 +55,6 @@ const NotFound = (props) => {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default withStyles(styles)(NotFound);

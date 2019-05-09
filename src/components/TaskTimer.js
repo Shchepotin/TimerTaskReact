@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 
-
 // Actions
 import {
   requestCurrentTask,
@@ -88,11 +87,21 @@ const TaskTimer = (props) => {
         }}
       >
         <div className={classes.modal}>
-          <Grid container className={classes.modalContent}>
-            <Typography variant="h6" color='error' id="modal-title">
+          <Grid
+            container
+            className={classes.modalContent}
+          >
+            <Typography
+              variant="h6"
+              color='error'
+              id="modal-title"
+            >
               Empty task name
             </Typography>
-            <Typography variant="subtitle1" id="simple-modal-description">
+            <Typography
+              variant="subtitle1"
+              id="simple-modal-description"
+            >
               You are trying close your task without name, enter the title and try again!
             </Typography>
           </Grid>

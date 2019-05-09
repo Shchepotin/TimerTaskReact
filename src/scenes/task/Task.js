@@ -39,22 +39,34 @@ const Task = (props) => {
 
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="h4" component="h2">
+            <Typography
+              variant="h4"
+              component="h2"
+            >
               { props.task.name }
             </Typography>
-            <Typography className={classes.pos} color="textSecondary">
+            <Typography
+              className={classes.pos}
+              color="textSecondary"
+            >
               Start
             </Typography>
             <Typography component="p">
               { DateTime.fromISO(props.task.start).toFormat('yyyy-MM-dd HH:mm:ss')}
             </Typography>
-            <Typography className={classes.pos} color="textSecondary">
+            <Typography
+              className={classes.pos}
+              color="textSecondary"
+            >
               End
             </Typography>
             <Typography component="p">
               { DateTime.fromISO(props.task.stop).toFormat('yyyy-MM-dd HH:mm:ss')}
             </Typography>
-            <Typography className={classes.pos} color="textSecondary">
+            <Typography
+              className={classes.pos}
+              color="textSecondary"
+            >
               Time spend
             </Typography>
             <Typography component="p">

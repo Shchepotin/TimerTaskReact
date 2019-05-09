@@ -34,22 +34,46 @@ const Home = (props) => {
 
   return (
     <div className={classes.root}>
-      <Grid container alignItems='center' direction='column' className={classes.container}>
+      <Grid
+        container
+        alignItems='center'
+        direction='column'
+        className={classes.container}
+      >
         <TaskTimer />
 
-        <AppBar position="static" className={classes.tabs}>
+        <AppBar
+          position="static"
+          className={classes.tabs}
+        >
           <Tabs
             className={classes.tabsItems}
             variant="fullWidth"
             value={props.location.pathname === '/' ? 0 : 1}
           >
-            <Tab component={Link} to={'/'} label="Tasks log" />
-            <Tab component={Link} to={'/chart'} label="Tasks chart" />
+            <Tab
+              component={Link}
+              to={'/'}
+              label="Tasks log"
+            />
+            <Tab
+              component={Link}
+              to={'/chart'}
+              label="Tasks chart"
+            />
           </Tabs>
         </AppBar>
 
-        <Route path={`/`} exact component={TaskLog} />
-        <Route path={`/chart`} exact component={TaskChart} />
+        <Route
+          path={`/`}
+          exact
+          component={TaskLog}
+        />
+        <Route
+          path={`/chart`}
+          exact
+          component={TaskChart}
+        />
       </Grid>
     </div>
   );
