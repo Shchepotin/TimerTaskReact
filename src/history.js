@@ -1,4 +1,4 @@
 import { createHashHistory } from 'history';
-const history = createHashHistory({ basename: process.env.PUBLIC_URL });
+const history = createHashHistory();
 
 export default history;
