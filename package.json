@@ -5,7 +5,6 @@
   "homepage": "https://shchepotin.github.com/TimerTaskReact/",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
-    "connected-react-router": "^6.4.0",
     "gh-pages": "^2.0.1",
     "history": "^4.9.0",
     "luxon": "^1.12.1",
