@@ -14,24 +14,22 @@ import Typography from '@material-ui/core/Typography';
 
 // Actions
 import {
-  requestTask,
+  receiveTask,
 } from '../../actions/task';
 
 import styles from '../../styles';
 
-const Task = (props) => {
-  const { classes } = props;
-
-  if (props.isError) {
+const Task = ({ classes, task, match, history, isError, receiveTask }) => {
+  if (isError) {
     return <Redirect to={'/404'} />;
   }
 
   useEffect(() => {
     // Load task
-    props.requestTask({
-      id: props.match.params.id,
+    receiveTask({
+      id: Number(match.params.id),
     });
-  }, [props.match.params.id]);
+  }, [match.params.id]);
 
   return (
     <div className={classes.root}>
@@ -43,7 +41,7 @@ const Task = (props) => {
               variant="h4"
               component="h2"
             >
-              { props.task.name }
+              { task.name }
             </Typography>
             <Typography
               className={classes.pos}
@@ -52,7 +50,7 @@ const Task = (props) => {
               Start
             </Typography>
             <Typography component="p">
-              { DateTime.fromISO(props.task.start).toFormat('yyyy-MM-dd HH:mm:ss')}
+              { DateTime.fromISO(task.start).toFormat('yyyy-MM-dd HH:mm:ss')}
             </Typography>
             <Typography
               className={classes.pos}
@@ -61,7 +59,7 @@ const Task = (props) => {
               End
             </Typography>
             <Typography component="p">
-              { DateTime.fromISO(props.task.stop).toFormat('yyyy-MM-dd HH:mm:ss')}
+              { DateTime.fromISO(task.stop).toFormat('yyyy-MM-dd HH:mm:ss')}
             </Typography>
             <Typography
               className={classes.pos}
@@ -72,7 +70,7 @@ const Task = (props) => {
             <Typography component="p">
               {
                 Interval
-                  .fromDateTimes(DateTime.fromISO(props.task.start), DateTime.fromISO(props.task.stop))
+                  .fromDateTimes(DateTime.fromISO(task.start), DateTime.fromISO(task.stop))
                   .toDuration()
                   .toFormat('hh:mm:ss')
               }
@@ -82,7 +80,7 @@ const Task = (props) => {
             <Button
               size="small"
               onClick={() => {
-                props.history.goBack();
+                history.goBack();
               }}
             >
               Back
@@ -101,7 +99,7 @@ Task.propTypes = {
     start: PropTypes.any,
     stop: PropTypes.any,
   }),
-  requestTask: PropTypes.func.isRequired,
+  receiveTask: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -109,5 +107,5 @@ export default connect(
     task: task.item,
     isError: task.isError,
   }), {
-    requestTask,
+    receiveTask,
   })(withStyles(styles)(Task));

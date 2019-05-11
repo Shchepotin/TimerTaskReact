@@ -22,9 +22,8 @@ import { generateRandomTasks } from '../actions/task'
 
 import splitTasksByTime from '../utils/splitTasksByTime';
 
-const TaskChart = (props) => {
-  const { classes } = props;
-  const data = useMemo(() => splitTasksByTime(props.tasks), [props.tasks]);
+const TaskChart = ({ classes, tasks, generateRandomTasks }) => {
+  const data = useMemo(() => splitTasksByTime(tasks), [tasks]);
 
   return (
     <div className={classes.subRoot}>
@@ -57,7 +56,7 @@ const TaskChart = (props) => {
           variant="contained"
           className={classes.actionButton}
           onClick={() => {
-            props.generateRandomTasks();
+            generateRandomTasks();
           }}
         >
           Generate

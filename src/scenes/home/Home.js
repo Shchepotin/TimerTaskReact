@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
@@ -15,8 +15,6 @@ import TaskTimer from '../../components/TaskTimer';
 
 // Actions
 import {
-  requestTasks,
-  requestCurrentTask,
   startTask,
   stopTask,
   updateCurrentTask,
@@ -26,11 +24,6 @@ import styles from '../../styles';
 
 const Home = (props) => {
   const { classes } = props;
-
-  useEffect(() => {
-    // Load all tasks
-    props.requestTasks();
-  }, []);
 
   return (
     <div className={classes.root}>
@@ -86,8 +79,6 @@ Home.propTypes = {
     start: PropTypes.any,
     stop: PropTypes.any,
   }),
-  requestTasks: PropTypes.func.isRequired,
-  requestCurrentTask: PropTypes.func.isRequired,
   startTask: PropTypes.func.isRequired,
   stopTask: PropTypes.func.isRequired,
   updateCurrentTask: PropTypes.func.isRequired,
@@ -97,8 +88,6 @@ export default connect(
   ({ task }) => ({
     currentTask: task.currentItem,
   }), {
-    requestTasks,
-    requestCurrentTask,
     startTask,
     stopTask,
     updateCurrentTask,

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-/**
- * Components
- */
+// Actions
+import {
+  resetIndicators,
+} from '../actions/task';
+
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,14 +13,14 @@ import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
-/**
- * Styles
- */
 import { withStyles } from '@material-ui/core';
 import styles from '../styles';
+import {connect} from "react-redux";
 
-const NotFound = (props) => {
-  const { classes } = props;
+const NotFound = ({ classes, resetIndicators }) => {
+  useEffect(() => {
+    resetIndicators();
+  }, []);
 
   return (
     <Grid
@@ -57,4 +59,7 @@ const NotFound = (props) => {
   );
 };
 
-export default withStyles(styles)(NotFound);
+export default connect(
+  () => ({}), {
+    resetIndicators,
+  })(withStyles(styles)(NotFound));

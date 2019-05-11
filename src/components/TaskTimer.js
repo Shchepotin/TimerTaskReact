@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DateTime, Interval } from 'luxon';
+import { useDebouncedCallback } from 'use-debounce';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +14,6 @@ import Typography from '@material-ui/core/Typography';
 
 // Actions
 import {
-  requestCurrentTask,
   startTask,
   stopTask,
   updateCurrentTask,
@@ -23,7 +23,7 @@ import styles from '../styles';
 
 const TaskTimer = (props) => {
   const { classes } = props;
-  const [task, setTask] = useState('');
+  const [taskName, setTaskName] = useState('');
   const [timer, setTimer] = useState('00:00:00');
   const [warning, setWarning] = useState(false);
 
@@ -52,25 +52,33 @@ const TaskTimer = (props) => {
     return () => {
       clearInterval(timer);
     };
-  }, [props.currentTask.id, props.currentTask.start]);
+  }, [props.currentTask.start]);
 
-  useEffect(() => {
-    // Load current task
-    props.requestCurrentTask();
-  }, []);
+  const [taskNameDebounceCallback] = useDebouncedCallback((value) => {
+    props.updateCurrentTask({
+      name: value,
+    });
+  }, 300);
 
   useEffect(() => {
     // Restore task name
-    setTask(props.currentTask.name);
-  }, [props.currentTask.id]);
+    setTaskName(props.currentTask.name);
+  }, [props.currentTask.start]);
 
   const startTask = () => {
-    props.startTask();
+    props.startTask({
+      ...props.currentTask,
+      start: DateTime.local().toISO(),
+      stop: null,
+    });
   };
 
   const stopTask = () => {
-    if (task.trim() !== '') {
-      props.stopTask();
+    if (taskName.trim() !== '') {
+      props.stopTask({
+        ...props.currentTask,
+        stop: DateTime.local().toISO(),
+      });
     } else {
       setWarning(true);
     }
@@ -121,13 +129,10 @@ const TaskTimer = (props) => {
         id="standard-name"
         label="Name of your task"
         className={classes.textField}
-        value={task}
+        value={taskName}
         onChange={(e) => {
-          setTask(e.target.value);
-
-          props.updateCurrentTask({
-            name: e.target.value,
-          });
+          setTaskName(e.target.value);
+          taskNameDebounceCallback(e.target.value);
         }}
         margin="normal"
       />
@@ -164,7 +169,6 @@ TaskTimer.propTypes = {
     start: PropTypes.any,
     stop: PropTypes.any,
   }),
-  requestCurrentTask: PropTypes.func.isRequired,
   startTask: PropTypes.func.isRequired,
   stopTask: PropTypes.func.isRequired,
   updateCurrentTask: PropTypes.func.isRequired,
@@ -174,7 +178,6 @@ export default connect(
   ({ task }) => ({
     currentTask: task.currentItem,
   }), {
-    requestCurrentTask,
     startTask,
     stopTask,
     updateCurrentTask,
